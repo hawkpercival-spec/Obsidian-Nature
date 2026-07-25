@@ -1,2 +1,2 @@
 # Obsidian-Nature
-a psychotraumtology app
+a psychotraumatology app
