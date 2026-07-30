@@ -1,13 +1,13 @@
-# Pillar I Knowledge Base
+# Pillar II Knowledge Base
 
-`src/data/theSelfKnowledge.ts` — the sourced background that rides along with every
-Pillar I analysis request as the `knowledge` field, composed by `knowledgeBriefing()`
-(~23,600 characters).
+`src/data/archetypesKnowledge.ts` — the sourced background sent with every
+`archetypal-pattern` request as the `knowledge` field, composed by
+`archetypeKnowledgeBriefing()` (~14,200 characters).
 
-The purpose is narrow and worth stating plainly: it exists so the model **names
-correctly what it observes in the analysand's material**, rather than improvising
-plausible-sounding Jungian language. The prompt instructs it not to lecture — the
-theory serves the reading of this person's work.
+Its purpose is narrower than Pillar I's. Pillar II's characteristic failure mode is
+**inflation** — the reader recognising themselves in an archetype and quietly
+concluding they are special. The knowledge base exists largely to let the model
+*name that accurately when it sees it*.
 
 ---
 
@@ -15,79 +15,100 @@ theory serves the reading of this person's work.
 
 | Export | Contents |
 |---|---|
-| `SELF_KNOWLEDGE` | 12 keyed entries, each tied to a curriculum module |
-| `EMPIRICAL_STUDIES` | 21 outcome studies and historical cases |
-| `CORE_COMPETENCIES` | 6 competencies from the Jungian competencies research |
-| `TRAINING_PARAMETERS` | Analyst training thresholds — hours, supervision, pathways |
-| `FOUNDATIONAL_SOURCES` | 16 primary works with topic tags |
-| `SELF_CITATIONS` | 4 direct quotations with attribution |
-| `SELF_BIBLIOGRAPHY` | 95 entries (43 PDF, 46 URL, 5 Markdown, 1 video) |
-| `knowledgeFor(moduleId)` | Look up the entry attached to a module |
-| `knowledgeBriefing()` | Compose everything into the model briefing |
+| `ARCHETYPE_KNOWLEDGE` | 9 entries |
+| `FRYE_MODES` | Northrop Frye's 5 fictional modes, as a diagnostic |
+| `SEASONAL_ARCHETYPES` | Frye's 4 seasons → plot → mythic goal → psychological reading |
+| `ARCHETYPE_QUOTES` | 6 attributed quotations |
+| `ARCHETYPE_SOURCES` | 13 sources |
+| `archetypeKnowledgeFor(id)` | Look up the entry attached to an archetype |
+| `archetypeKnowledgeBriefing()` | Compose everything into the model briefing |
+
+Alongside it, `src/data/archetypes.ts` carries **18 archetypes** — 6 structural (Ego,
+Persona, Shadow, Anima, Animus, Self) and 12 figures (Great Mother, Father, Wise Old
+Man/Senex, Divine Child, Kore/Maiden, Hero, Trickster, Wounded Healer, Syzygy, Puer
+Aeternus, Mana Personality, Rebirth) — each with a shadow form, plus the **5
+individuation movements**.
 
 ---
 
-## The 12 knowledge entries
+## The 9 entries
 
 | id | Topic |
 |---|---|
-| `active_imagination_alchemy` | The alchemy of active imagination and individuation |
-| `active_imagination_architecture` | Jung and the architecture of active imagination (Chodorow) |
-| `psychosynthesis_bridge` | Assagioli, Jung, and the psychosynthetic map |
-| `subpersonality_harmonization` | Subpersonalities and the phases of harmonization (Vargiu) |
-| `history_and_structure` | Historical context and the structure of the "I" |
-| `lacanian_distinctions` | Theoretical precision: the I, the Ego, and the Subject |
-| `empirical_foundations` | Empirical foundations of analytical psychology (Roesler) |
-| `iaap_research_strategy` | Toward a coherent research strategy |
-| `clinical_formation` | Professional training and clinical formation |
-| `common_factors` | The Common Factors model |
-| `long_term_benefits` | Long-term treatment and delayed benefit |
-| `risks_and_ethics` | Risks of ineffective therapy — the ethical imperative |
+| `von_franz_method` | Von Franz's hermeneutic — how to read archetypal material |
+| `pygmalion_effect` | Prophecy by expectation — the Pygmalion Effect |
+| `frye_modes` | Frye's five modes and the deconstruction of the hero |
+| `inflation_and_safety` | Inflation, the mana personality, and why this pillar stays grounded |
+| `chosen_one_scholarship` | Peer-reviewed finding: collective belief *disrupts* individuation |
+| `arrakis_as_psyche` | Arrakis as a map of the psyche |
+| `seeker_and_liminality` | The Seeker, sacred restlessness, and liminality |
+| `fairy_tales_and_diamond_body` | Fairy tales, the Gretel moment, and the diamond body |
+| `maternal_imago_and_projection` | Shadow projection and the maternal imago |
 
-The last four are deliberate. A self-analysis app that only carries the flattering
-literature would be misleading, so the knowledge base also states what the outcome
-evidence actually shows, that therapy can harm as well as help, and where the
-practitioner competencies lie that this tool does not and cannot supply.
+## The method the prompt is built on
 
-## Empirical studies (21)
+Von Franz's four steps, which structure every `archetypal-pattern` report:
 
-Outcome research — PAL (Switzerland), PAP-S, the Berlin Jungian Study, Konstanz,
-San Francisco, Stuttgart / German Institute (Roesler et al., 2025), and a systematic
-review and meta-analysis of Jungian analysis — alongside historical case material:
-Jung's own self-healing experiment (1913–16), the analysis of Miss X, the University
-Man from the Tavistock Lectures, and the Word Association Experiment. Adjacent
-evidence covers the Massachusetts General Hospital meditation study, the Beauregard
-emotional-regulation studies, psychosynthesis counselling and training research, and
-cinemeducation in psychiatric training.
+1. **Expositional diagnosis** — the starting deficit or ossification in the conscious attitude
+2. **Systematic psychic mapping** — protagonist = emerging ego; king = dominant conscious attitude; monsters = shadow; helpers = mediating functions
+3. **Symbolic amplification** — connect motifs outward to myth so meaning exceeds personal association
+4. **Psychodynamic synthesis** — did the psyche integrate, or regress?
 
-## Recorded disagreements
+## Frye's modes as an inflation diagnostic
 
-Where sources conflict, the conflict is recorded rather than resolved silently. The
-one live in this pillar: **Vargiu's phases of subpersonality harmonization** are given
-as four in the source document supplied (recognition, acceptance, inclusion,
-synthesis) and as five or six in the wider literature, which adds coordination and
-integration. Both are noted in the entry, and the discrepancy is the teaching point.
+The five modes are used here not as literary taxonomy but as a read on how a person
+narrates their own life:
+
+```
+High Mimetic → Romance → Myth      ascent into inflation
+Myth ──────────────────► Ironic    inflation collapses into captivity
+Low Mimetic                        the grounded return
+```
+
+Someone narrating themselves upward through those modes is the pattern the model is
+asked to name.
+
+---
+
+## A recorded disagreement
+
+This one matters and is deliberately left unresolved in the material.
+
+**Widyadhana & Haryanti (2026)**, *Language Literacy* — peer-reviewed, DOI
+`10.30743/ll.v10i1.13847` — find that Paul Atreides' individuation **does not follow
+Jung's ideal model**: his identity becomes "increasingly shaped by collective
+expectations rather than personal integration." They read Herbert as *critiquing*
+messianism, and argue Jungian criticism should attend to how collective belief
+**disrupts** individuation.
+
+This contradicts one of the source documents supplied for this pillar, *The Jungian
+Architecture of Paul Atreides*, which holds that Paul successfully individuates.
+
+Both readings are recorded, and the disagreement is itself the teaching point — being
+recognised by a collective as exceptional is precisely what can *prevent* the inner
+work, rather than evidence of it. That is the most useful thing this pillar can say to
+someone who has started to feel chosen.
 
 ---
 
 ## Safety constraints baked into the material
 
-Enforced in `SYSTEM_PROMPT` (`server/prompts.ts`) and observed throughout the
-knowledge base and curriculum:
+Enforced in `SYSTEM_PROMPT` and in the `archetypal-pattern` prompt itself:
 
-- **Reality-based only.** No mysticism, magic, spirits, astrology, or energy presented
-  as literal. Alchemical language appears strictly as Jung used it — as a symbolic
-  vocabulary for psychological process — never as a claim about the world.
-- **"Obsidian nature" = the shadow**, meaning disowned aspects of personality,
-  cognition and behaviour.
+- **Archetypes are patterns to relate to, never identities to assume.** Stated
+  explicitly in the prompt, not just implied by the material.
+- **Inflation gets named.** The prompt directs the model: if the material shows someone
+  feeling *chosen or special* rather than *more responsible*, say so plainly and gently.
+- **Reality-based only.** Mythic and alchemical language is used as Jung used it — a
+  symbolic vocabulary for psychological process, never a claim about the world. No
+  prophecy, no destiny, no literal supernatural agency.
+- **No fixed universal meanings.** The prompt forbids resolving a symbol to one
+  meaning; it asks for working material instead.
 - **No diagnosis, no treatment claims, no substitute for care.**
-- **Crisis material** turns the output supportive and directs toward professional
-  support rather than deeper analysis.
 
 ## Adding to it
 
-1. Append to `SELF_KNOWLEDGE` with a `moduleId` matching an id in `theSelf.ts`.
-2. Add sources to `SELF_BIBLIOGRAPHY` with the correct `kind`.
-3. `knowledgeBriefing()` picks up new entries automatically — no wiring needed.
-4. Watch the briefing size. It is sent on every request, so it costs tokens on every
-   report; prune before it doubles.
+1. Append to `ARCHETYPE_KNOWLEDGE` with an `id` matching an archetype in `archetypes.ts`.
+2. Add sources to `ARCHETYPE_SOURCES` with author and date where known.
+3. `archetypeKnowledgeBriefing()` picks up new entries automatically.
+4. Watch the briefing size — it is sent on every `archetypal-pattern` request.
